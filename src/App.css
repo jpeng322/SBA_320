@@ -6,8 +6,28 @@
 
 #root {
  width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ padding: 4vw ;
 }
 
+#root h1 {
+  margin-bottom: 1rem;
+}
+
+#root input {
+  height: 2rem;
+  padding: .5rem;
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem
+}
+.no-exercises {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
 .card {
   display: flex;
   flex-direction: column;
@@ -16,6 +36,7 @@
   border-radius: 0.5rem;
   border: 2px solid black;
   padding: 1rem;
+  text-align: center;
 }
 
 .card div, .card h2 {
@@ -24,9 +45,9 @@
 
 .card-container {
   display: grid;
-  gap: 1rem;
+  gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   /* grid-auto-flow: column; */
   width: 100%;
-  padding: 5vw;
+
 }

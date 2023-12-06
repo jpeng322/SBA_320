@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import axios from "axios";
 import { data } from "../data";
@@ -9,7 +7,7 @@ import Card from "./components/Card";
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [exerciseName, setExerciseName] = useState("");
 
   // useEffect(() => {
   //   getExercises();
@@ -35,22 +33,42 @@ function App() {
     console.log(options);
   }
 
-  console.log(data);
+  // console.log(exerciseName);
+  const filteredExercises = data.filter((exercise) =>
+    exercise.name.includes(exerciseName.toLowerCase())
+  );
+
+  const cardData = exerciseName ? filteredExercises : data;
+  console.log(filteredExercises);
   return (
+    <>
+      <h1>Exercise Selector</h1>
+      <label htmlFor="exerciseName">Input Exercise</label>
+      <input
+        name="exerciseName"
+        type="text"
+        value={exerciseName}
+        onChange={() => setExerciseName(event.target.value)}
+      />
       <div className="card-container">
-        {data.map((exercise) => {
-          return (
-            <Card
-              key={exercise.id}
-              equipment={exercise.equipment}
-              gif={exercise.gifUrl}
-              name={exercise.name}
-              target={exercise.target}
-              bodyPart={exercise.bodyPart}
-            />
-          );
-        })}
+        {cardData.length > 0 ? (
+          cardData.map((exercise) => {
+            return (
+              <Card
+                key={exercise.id}
+                equipment={exercise.equipment}
+                gif={exercise.gifUrl}
+                name={exercise.name}
+                target={exercise.target}
+                bodyPart={exercise.bodyPart}
+              />
+            );
+          })
+        ) : (
+          <div className="no-exercises">No Exercises Available</div>
+        )}
       </div>
+    </>
   );
 }
 
