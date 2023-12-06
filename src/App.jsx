@@ -3,15 +3,17 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import axios from "axios";
+import { data } from "../data";
+import Card from "./components/Card";
 
-const API_KEY = import.meta.env.VITE_API_KEY
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    getExercises();
-  });
+  // useEffect(() => {
+  //   getExercises();
+  // }, []);
 
   async function getExercises() {
     const options = {
@@ -33,30 +35,22 @@ function App() {
     console.log(options);
   }
 
-  
+  console.log(data);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="card-container">
+        {data.map((exercise) => {
+          return (
+            <Card
+              key={exercise.id}
+              equipment={exercise.equipment}
+              gif={exercise.gifUrl}
+              name={exercise.name}
+              target={exercise.target}
+              bodyPart={exercise.bodyPart}
+            />
+          );
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
   );
 }
 
