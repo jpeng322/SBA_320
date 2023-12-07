@@ -23,6 +23,12 @@
   font-size: 1.25rem;
   margin-bottom: 2.5rem
 }
+
+#root p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
 .no-exercises {
   text-align: center;
   font-size: 2rem;
