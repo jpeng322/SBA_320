@@ -5,12 +5,12 @@
 }
 
 #root {
- width: 100%;
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
- padding: 4vw ;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4vw;
 }
 
 #root h1 {
@@ -19,11 +19,66 @@
 
 #root input {
   height: 2rem;
-  padding: .5rem;
+  padding: 0.5rem;
   font-size: 1.25rem;
-  margin-bottom: 2.5rem
+  margin-bottom: 2.5rem;
 }
 
+.exercise-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  position: relative;
+}
+
+.filter {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.filter:hover {
+  cursor: pointer;
+}
+
+.dropdown,
+.subdropdown {
+  text-transform: capitalize;
+}
+
+.dropdown {
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 1rem;
+  background-color: rgb(236, 229, 229);
+  border-radius: 0.25rem;
+}
+
+.subdropdown {
+  margin-left: 0.75rem;
+  transition-duration: 0.1s;
+  font-size: 1rem;
+  font-weight: 600;
+  /* border: 1px solid blue; */
+  /* height: 100% */
+  border-bottom: 1px solid black;
+  padding: 0.2rem;
+}
+
+.subdropdown:last-child {
+  border: 1px solid red;
+  border: none;
+}
+
+.subdropdown-container {
+}
+
+.subdropdown:hover {
+  color: rgb(129, 123, 123);
+}
 #root p {
   font-size: 1.25rem;
   font-weight: 600;
@@ -45,7 +100,8 @@
   text-align: center;
 }
 
-.card div, .card h2 {
+.card div,
+.card h2 {
   text-transform: capitalize;
 }
 
@@ -55,5 +111,4 @@
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   /* grid-auto-flow: column; */
   width: 100%;
-
 }

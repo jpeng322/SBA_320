@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 import { data } from "../data";
 import Card from "./components/Card";
-
+import Dropdown from "./components/Dropdown";
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
@@ -12,6 +12,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [filterValue, setFilterValue] = useState("");
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -31,11 +33,11 @@ function App() {
       const exerciseData = await response.data;
 
       if (page === 1) {
-        setItems([...exerciseData.slice(0, 10)]);
+        setItems([...exerciseData.slice(0, 12)]);
       } else {
         setItems((prevItems) => [
           ...prevItems,
-          ...exerciseData.slice(page * 10, (page + 1) * 10),
+          ...exerciseData.slice(page * 12, (page + 1) * 12),
         ]);
       }
       setPage((prevPage) => prevPage + 1);
@@ -66,22 +68,70 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isLoading]);
 
-  const filteredExercises = items.filter((exercise) =>
-    exercise.name.includes(exerciseName.toLowerCase())
-  );
+  const filteredExercises = items.filter((exercise) => {
+    if (filterValue && exerciseName) {
+      if (filterValue[0] === "target") {
+        return (
+          exercise.target.includes(filterValue[1].toLowerCase()) &&
+          exercise.name.includes(exerciseName.toLowerCase())
+        );
+      } else if (filterValue[0] === "equipment") {
+        return (
+          exercise.equipment.includes(filterValue[1].toLowerCase()) &&
+          exercise.name.includes(exerciseName.toLowerCase())
+        );
+      } else if (filterValue[0] === "body part") {
+        return (
+          exercise.bodyPart.includes(filterValue[1].toLowerCase()) &&
+          exercise.name.includes(exerciseName.toLowerCase())
+        );
+      }
+    } else if (filterValue) {
+      if (filterValue[0] === "target") {
+        return exercise.target.includes(filterValue[1].toLowerCase());
+      } else if (filterValue[0] === "equipment") {
+        return exercise.equipment.includes(filterValue[1].toLowerCase());
+      } else if (filterValue[0] === "body part") {
+        return exercise.bodyPart.includes(filterValue[1].toLowerCase());
+      }
+    } else {
+      return exercise.name.includes(exerciseName.toLowerCase());
+    }
+    // if (filterValue[0] === "target") {
+    //   return exercise.target.includes(filterValue[1].toLowerCase());
+    // } else if (filterValue[0] === "equipment") {
+    //   return exercise.equipment.includes(filterValue[1].toLowerCase());
+    // } else if (filterValue[0] === "body part") {
+    //   return exercise.bodyPart.includes(filterValue[1].toLowerCase());
+    // } else {
+    //   return exercise.name.includes(exerciseName.toLowerCase());
+    // }
+  });
 
-  const cardData = exerciseName ? filteredExercises : items;
+  const cardData = exerciseName || filterValue ? filteredExercises : items;
 
+  console.log(filterValue);
   return (
     <>
       <h1>Exercise Selector</h1>
-      <label htmlFor="exerciseName">Input Exercise</label>
-      <input
-        name="exerciseName"
-        type="text"
-        value={exerciseName}
-        onChange={() => setExerciseName(event.target.value)}
-      />
+      <div className="exercise-name">
+        <label htmlFor="exerciseName">Input Exercise Name </label>
+        <input
+          name="exerciseName"
+          type="text"
+          value={exerciseName}
+          onChange={() => setExerciseName(event.target.value)}
+        />
+        <div className="filter">
+          <div onClick={() => setShowDropdown(!showDropdown)}>Filter </div>
+          {showDropdown && (
+            <Dropdown
+              filterValue={filterValue}
+              setFilterValue={setFilterValue}
+            />
+          )}
+        </div>
+      </div>
       <div className="card-container">
         {cardData.length > 0 ? (
           cardData.map((exercise) => {
@@ -99,9 +149,9 @@ function App() {
         ) : (
           <div className="no-exercises">No Exercises Available</div>
         )}
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error: {error.message}</p>}
       </div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
     </>
   );
 }
