@@ -1,9 +1,16 @@
-# React + Vite
+# SBA320 React Web Application Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This skill based assessment tested my knowledge of HTML, CSS, JavaScript, React and deployment. I used the axios library to asynchronously call the ExercsieDB API to expose data of many different exercises. I implemented React hooks to manage the state of functional components which include the filter dropdown, search bar, and workout cards.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# SBA_320
+##  Website Link
+
+https://workouts-sba.onrender.com/
+
+## Usage
+
+To filter the cards by their categories, click on the dropdown and click on the type of workout exercise you would like. 
+
+To search the exercises, input the name of the exercise you would like.
+
+If you would like to see all the exercises, refresh or clear out the search bar.
