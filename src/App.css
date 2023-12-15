@@ -40,8 +40,26 @@
   font-weight: 600;
   font-size: 1.25rem;
 }
-.filter:hover {
+.filter:hover,
+.clear:hover {
   cursor: pointer;
+}
+
+.clear:hover {
+  background-color: rgb(214 211 209);
+}
+.clear {
+  position: absolute;
+  left: 70px;
+  top: 0;
+  /* height: 100%; */
+  font-weight: 600;
+  font-size: 1.25rem;
+  border: none;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  /* transition: 0.1s ease-in-out; */
 }
 
 .dropdown,
@@ -55,6 +73,7 @@
   padding: 1rem;
   background-color: rgb(236, 229, 229);
   border-radius: 0.25rem;
+  margin-top: 1rem;
 }
 
 .subdropdown {
@@ -111,4 +130,24 @@
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   /* grid-auto-flow: column; */
   width: 100%;
+}
+
+@media all and (max-width: 900px) {
+  .filter {
+    position: relative;
+  }
+
+  .clear {
+    position: relative;
+    left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .dropdown {
+    margin-top: 0rem;
+  }
+
+  #root input {
+    margin-bottom: 1rem;
+  }
 }

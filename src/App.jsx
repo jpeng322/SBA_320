@@ -131,6 +131,11 @@ function App() {
             />
           )}
         </div>
+        {filterValue && (
+          <button className="clear" onClick={() => setFilterValue("")}>
+            Clear
+          </button>
+        )}
       </div>
       <div className="card-container">
         {cardData.length > 0 ? (

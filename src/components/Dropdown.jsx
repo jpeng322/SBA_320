@@ -32,6 +32,7 @@ const Dropdown = ({ filterValue, setFilterValue }) => {
       {Object.entries(categories).map(([key, value]) => {
         return (
           <DropdownCategory
+            key={key}
             name={key}
             subcategories={value}
             filterValue={filterValue}
