@@ -14,6 +14,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
   const [filterValue, setFilterValue] = useState("");
+  const [allData, setAllData] = useState([]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -31,6 +32,8 @@ function App() {
 
       const response = await axios.request(options);
       const exerciseData = await response.data;
+
+      setAllData(exerciseData);
 
       if (page === 1) {
         setItems([...exerciseData.slice(0, 12)]);
@@ -68,7 +71,7 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isLoading]);
 
-  const filteredExercises = items.filter((exercise) => {
+  const filteredExercises = allData.filter((exercise) => {
     if (filterValue && exerciseName) {
       if (filterValue[0] === "target") {
         return (
